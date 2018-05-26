@@ -6,13 +6,14 @@ class HashTable:
 
     def buckets_str(self):
         """
-        Return a string representing the various buckets of this table. The output looks like:
+        Returns a string representing the various buckets of this table.
+        The output looks like:
           0000->
           0001->
           0002->
-          0003->parrt:99
+          0003->key:value
           0004->
-        where parrt:99 indicates an association of (parrt,99) in bucket 3.
+        where key:value indicates an association of (key:value) in bucket 3.
         """
         buckets_index = ""
         counter = 0
@@ -20,26 +21,29 @@ class HashTable:
             buckets_index += "%04d->" % counter
 
             pairs = []
-            for pair in bucket:
-                pairs.append(":".join([str(pair[0]), str(pair[1])]))
+            for key_value in bucket:
+                pairs.append(":".join([str(key_value[0]), str(key_value[1])]))
             buckets_index += ", ".join(pairs) + '\n'
             counter += 1
         return buckets_index
 
     def __str__(self):
         """
-        Return what str(table) would return for a regular Python dict such as {parrt:99}.
-        The order should be bucket order and then insertion order in the bucket.
-        The insertion order is guaranteed when you append to the buckets in put.
+        Return what str(table) would return for a regular
+        Python dict such as {key:value}.
+        The order should be bucket order and then insertion
+        order in the bucket.
+        The insertion order is guaranteed when you append
+        to the buckets in put.
         """
         b = []
         if len(self.table) == 0:
             return "{}"
 
         for buck in self.table:
-            for pair in buck:
-                a = str(pair[0]) + ":" + str(pair[1])
-                b.append(a)
+            for key_value in buck:
+                pairs = str(key_value[0]) + ":" + str(key_value[1])
+                b.append(pairs)
         result = ', '.join(b)
         result = "{" + result + "}"
         if result == "":
@@ -49,31 +53,35 @@ class HashTable:
     def get(self, key):
         """
         Return table[key].
-        Find the appropriate bucket indicated by the key and look for the association with the key.
+        Find the appropriate bucket indicated by the key and
+        look for the association with the key.
         Return the value (not the key and not the association!)
         Return None if key not found.
         """
-        a, b, c = self.bucket_indexof(self.table, key)
-        if b == False:
-            return (set())
+        index, exists, buck_num = self.bucket_indexof(key)
+        if exists is False:
+            return set()
         else:
-            return (self.table[c][a][1])
+            return self.table[buck_num][index][1]
 
     def put(self, key, value):
         """
         Perform table[key] = value
-        Find the appropriate bucket indicated by key and then append a value to the bucket.
-        If the bucket for key already has a key, value pair with that key then replace it.
-        Make sure that you are only adding (key, value) associations to the buckets.
+        Find the appropriate bucket indicated by key and then append
+        a value to the bucket. If the bucket for key already has a key,
+        value pair with that key then replace it.
+        Make sure that you are only adding (key, value) associations
+        to the buckets.
         """
-        a, b, c = self.bucket_indexof(key)
-        if b == True:
-            a, b, c = self.bucket_indexof(key)
-            self.table[c][a][1].update(value)
+        index, exists, buck_num = self.bucket_indexof(key)
+
+        if exists is True:
+            index, exists, buck_num = self.bucket_indexof(key)
+            self.table[buck_num][index][1].update(value)
             return None
 
-        elif b == False:
-            self.table[c].append((key, value))
+        elif exists is False:
+            self.table[buck_num].append((key, value))
             return None
 
     def bucket_indexof(self, key):
