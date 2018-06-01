@@ -1,6 +1,6 @@
 class HashTable:
-
-    def __init__(self, buckets):
+    
+    def __init__(self, buckets = 11):
         self.buckets = buckets
         self.table = [[] for i in range(self.buckets)]
 
@@ -77,7 +77,7 @@ class HashTable:
 
         if exists is True:
             index, exists, buck_num = self.bucket_indexof(key)
-            self.table[buck_num][index][1].update(value)
+            self.table[buck_num][index] = (key, set([value]))
             return None
 
         elif exists is False:
@@ -110,3 +110,10 @@ class HashTable:
                 tuple_index = buck.index(elem)
                 exists = True
         return tuple_index, exists, buck_number
+
+    def __setitem__(self, key, item):
+        self.put(key, item)
+
+    def __getitem__(self, key):
+        return self.get(key)
+
