@@ -16,7 +16,8 @@ In [hashtable.py](https://github.com/dsavg/MS-in-Data-Science-Projects/blob/mast
 
 ## Simple ETL in Python
 
-I created two simple scripts in Python for generating data in multiple formats. In [fromcsv.py](https://github.com/dsavg/MS-in-Data-Science-Projects/blob/master/ETL/fromcsv.py) I created a script that takes as an input a csv file and converts it to a table in html, an xml file or a json file. In order to run this script, simply type ```python fromcsv.py html < input.csv > output.csv``` in bash command line.
+I created two simple scripts in Python for generating data in multiple formats. In [fromcsv.py](https://github.com/dsavg/MS-in-Data-Science-Projects/blob/master/ETL/fromcsv.py) I created a script that takes as an input a csv file and converts it to a table in html, an xml file or a json file. In order to run this script, simply type the following in the bash command line,
+```python fromcsv.py html < input.csv > output.csv``` 
 
 
 
