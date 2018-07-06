@@ -54,8 +54,6 @@ def csv2html(header, data, HTML):
     """
     :return:
     """
-    print(header)
-    print(data)
     return Environment().from_string(HTML).render(title=header,
                                                   main=data,
                                                   rows=len(data),
