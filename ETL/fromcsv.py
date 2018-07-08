@@ -41,7 +41,7 @@ XML = """<?xml version="1.0"?>
 def file_reading():
     """
     reads the file that is after the < symbol
-    :return: the headers list and the data list
+    returns the headers list and the data list
     """
     data = sys.stdin.read().strip().split("\n")
     header = data[0].rstrip().split(',')
@@ -52,7 +52,8 @@ def file_reading():
 
 def csv2html(header, data, HTML):
     """
-    :return:
+    takes as arguments the headers, the data and the template
+    and return the html formatted string
     """
     return Environment().from_string(HTML).render(title=header,
                                                   main=data,
@@ -62,7 +63,8 @@ def csv2html(header, data, HTML):
 
 def csv2json(header, data, JSON):
     """
-    :return:
+    takes as arguments the headers, the data and the template
+    and return the json formatted string
     """
     title = ', '.join(map(lambda x: '"' + x + '"', header))
     json_header = ['"' + header[i] + '"' for i in range(len(header))]
@@ -75,7 +77,8 @@ def csv2json(header, data, JSON):
 
 def csv2xml(header, data, XML):
     """
-    :return:
+    takes as arguments the headers, the data and the template
+    and return the xml formatted string
     """
     xml_header = [header[i].replace(" ", "_") for i in range(len(header))]
 

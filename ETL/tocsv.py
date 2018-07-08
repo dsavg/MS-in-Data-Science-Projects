@@ -6,14 +6,15 @@ import untangle
 def file_reading():
     """
     reads the file that is after the < symbol
-    :return: the headers list and the data list
+    returns the context of the file
     """
     return sys.stdin.read().strip()
 
 
 def xml2csv(file):
     """
-    :return:
+    takes as arguments the context of the file
+    and returns the csv file
     """
     xml = untangle.parse(file)
 
@@ -31,7 +32,8 @@ def xml2csv(file):
 
 def json2csv(file):
     """
-    :return:
+    takes as arguments the context of the file
+    and returns the csv file
     """
     data = json.loads(file)
 
@@ -39,7 +41,6 @@ def json2csv(file):
     header = ','.join(i for i in headers)
 
     jmain = data['data']
-    # a = data['data'][0]
 
     main_d = []
     for i in range(len(jmain)):
